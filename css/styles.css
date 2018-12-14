@@ -59,3 +59,16 @@ height: 300px;
   min-height: 300px;
 }
 
+.green-check {
+  background: green !important;
+  border: none;
+  height: 32px !important;
+  text-align: center !important;
+}
+
+.red-check {
+  background: red !important;
+  border: none;
+  height: 32px !important;
+  text-align: center !important;
+}
