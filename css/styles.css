@@ -72,3 +72,8 @@ height: 300px;
   height: 32px !important;
   text-align: center !important;
 }
+#carouselButton {
+  right:0px;
+  position: absolute;
+  bottom: 0px;
+}
