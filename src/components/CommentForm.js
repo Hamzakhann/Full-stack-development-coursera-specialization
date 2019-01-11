@@ -9,7 +9,9 @@ import {
   Col,
   Label
 } from "reactstrap";
-import { Control, LocalForm, Errors } from "react-redux-form";
+
+import { Control, Form, Errors, actions } from 'react-redux-form';
+
 import "./custom.css";
 
 const required = val => val && val.length;
@@ -33,10 +35,12 @@ export default class CommentForm extends Component {
     });
 
   }
-  handleSubmit(values){
-    this.toggle();
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
-  }
+  handleSubmit(values) {
+    console.log('Current State is: ' + JSON.stringify(values));
+    alert('Current State is: ' + JSON.stringify(values));
+    this.props.resetFeedbackForm();
+    // event.preventDefault();
+}
   render() {
     const closeBtn = (
       <button className="close" onClick={this.toggle}>
@@ -62,8 +66,7 @@ export default class CommentForm extends Component {
             Submit Comment
           </ModalHeader>
           <ModalBody>
-            <LocalForm onSubmit={values => this.handleSubmit(values)}>
-              <form>
+          <Form model="feedback" onSubmit={(values) => this.handleSubmit(values)}>  <form>
                 <div class="form-group">
                   <label for="formGroupExampleInput">Rating</label>
                   <input
@@ -113,7 +116,7 @@ export default class CommentForm extends Component {
                   />
                 </Col>
               </Row>
-            </LocalForm>
+              </Form>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>
