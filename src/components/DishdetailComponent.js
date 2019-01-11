@@ -58,8 +58,11 @@ import CommentForm from './CommentForm';
               <RenderDish dish={props.dish} />
           </div>
           <div className="col-12 col-md-5 m-1">
-              <RenderComments comments={props.comments} />
-              <CommentForm/>
+          <RenderComments comments={props.comments}
+        addComment={props.addComment}
+        dishId={props.dish.id}
+      />
+           <CommentForm dishId={props.dishId} addComment={props.addComment} />
           </div>
       </div>
       </div>

@@ -33,6 +33,10 @@ export default class CommentForm extends Component {
     });
 
   }
+  handleSubmit(values){
+    this.toggle();
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+  }
   render() {
     const closeBtn = (
       <button className="close" onClick={this.toggle}>
