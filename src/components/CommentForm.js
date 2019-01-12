@@ -39,6 +39,7 @@ export default class CommentForm extends Component {
     console.log('Current State is: ' + JSON.stringify(values));
     alert('Current State is: ' + JSON.stringify(values));
     this.props.resetFeedbackForm();
+    this.props.postComment(this.props.dishId, values.rating, values.author, values.comment);
     // event.preventDefault();
 }
   render() {

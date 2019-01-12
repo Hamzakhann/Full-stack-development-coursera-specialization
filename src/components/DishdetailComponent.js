@@ -20,7 +20,7 @@ import { Loading } from './LoadingComponent';
       return <div></div>
     }
   }
-  function RenderComments({comments}) {
+  function RenderComments({comments, postComment, dishId}) {
     console.log(comments)
         
     if (props.isLoading) {
@@ -80,10 +80,10 @@ import { Loading } from './LoadingComponent';
           </div>
           <div className="col-12 col-md-5 m-1">
           <RenderComments comments={props.comments}
-        addComment={props.addComment}
+       postComment={props.postComment}
         dishId={props.dish.id}
       />
-           <CommentForm dishId={props.dishId} addComment={props.addComment} />
+           <CommentForm dishId={dishId} postComment={postComment} />
           </div>
       </div>
       </div>
