@@ -3,6 +3,7 @@ import {View , Platform } from 'react-native';
 import Menu from './MenuComponent';
 import Home from './HomeComponent';
 import Dishdetail from './DishdetailComponent';
+import ContactUs from './ContactComponent';
 import {createStackNavigator , createAppContainer ,createDrawerNavigator } from 'react-navigation';
 
 
@@ -53,9 +54,16 @@ const MainNavigator = createDrawerNavigator({
             title:'Menu',
             drawerLabel:'Menu'
         }      
+    },
+    ContactUs:{
+        screen:ContactUs,
+        defaultNavigationOptions:{
+            title:'Contact Us',
+            drawerLabel:'Contact Us'
+        }
     }
 },{
-    drawerBackgroundColor:'#D1C4E9'
+    drawerBackgroundColor:'black'
 });
 
 
