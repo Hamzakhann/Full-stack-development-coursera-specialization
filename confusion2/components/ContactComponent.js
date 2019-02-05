@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { Card } from 'react-native-elements';
-const ContactUs = ()=>{
+const ContactUs = (props)=>{
     return(
 <Card title="Contact Information">
 <View>
