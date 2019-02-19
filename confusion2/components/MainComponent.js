@@ -1,15 +1,21 @@
 import React , {Component} from'react';
-import {View , Platform } from 'react-native';
+import {View , Platform , Image , StyleSheet , ScrollView , Text } from 'react-native';
 import Menu from './MenuComponent';
 import Home from './HomeComponent';
 import Dishdetail from './DishdetailComponent';
 import ContactUs from './ContactComponent';
 import AboutUs from './AboutComponent';
-import {createStackNavigator , createAppContainer ,createDrawerNavigator } from 'react-navigation';
-
+import {createStackNavigator , createAppContainer ,createDrawerNavigator , createDrawerNavigator, DrawerItems , SafeAreaView } from 'react-navigation';
+import {Icon} from 'react-native-elements';
 
 const MenuNavigator = createStackNavigator({
-    Menu: {screen:Menu},
+    Menu: {screen:Menu,
+        navigationOptions: ({ navigation }) => ({
+            headerLeft: <Icon name="menu" size={24} 
+                                color= 'white'
+                             onPress={ () => navigation.toggleDrawer() } />          
+          })  
+    },
     Dishdetail : {screen:Dishdetail}
 },{
     initialRouteName:'Menu',
@@ -28,72 +34,141 @@ const MenuNavigator = createStackNavigator({
 const HomeNavigator = createStackNavigator({
     Home: {screen:Home},
 },{
-    defaultNavigationOptions: {
+    defaultNavigationOptions: ({navigation})=>({
         headerStyle: {
-          backgroundColor: 'black',
+          backgroundColor: '#512DA8',
         },
         headerTintColor: 'yellow',
         headerTitleStyle: {
-          fontWeight: 'bold',
-          marginLeft:'40%'
+            color:'#fff'
         },
-      },
+
+        headerLeft: <Icon name="menu" size={24} 
+        color= 'white'
+        onPress={ () => navigation.toggleDrawer() } />    
+
+        })
 });
 
 const AboutNavigator = createStackNavigator({
     About: {screen:AboutUs},
 },{
-    defaultNavigationOptions: {
+    defaultNavigationOptions: ({navigation})=> ({
         headerStyle: {
-          backgroundColor: '#f4511e',
+          backgroundColor: '#512DA8',
+        },
+        headerTitleStyle:{
+            color:"#fff"
         },
         headerTintColor: '#fff',
-      },
+
+        headerLeft: <Icon name="menu" size={24} 
+        color= 'white'
+        onPress={ () => navigation.toggleDrawer() } />    
+      })
 });
 
 const ContactNavigator = createStackNavigator({
     Contact: {screen:ContactUs},
 },{
-    defaultNavigationOptions: {
+    defaultNavigationOptions: ({navigation})=> ({
         headerStyle: {
-          backgroundColor: '#f4511e',
+          backgroundColor: '#512DA8',
+        },
+        headerTitleStyle:{
+            color:"#fff"
         },
         headerTintColor: '#fff',
-      },
+        headerLeft: <Icon name="menu" size={24} 
+        color= 'white'
+        onPress={ () => navigation.toggleDrawer() } />    
+      })
 });
 
+
+const CustomDrawerContentComponent = (props)=>(
+    <ScrollView>
+        <SafeAreaView style={StyleSheet.container} forceInset={{top:'always' , horizontal:'never'}} >
+        <View style={StyleSheet.drawerHeader} >
+            <View style={{flex:1}} >
+            <Image 
+            source={require('./images/logo.png')} 
+            style={StyleSheet.drawerImage}
+            />
+            </View>
+            <View style={{flex:2}} >
+                <Text style={styles.drawerHeaderText} >Ristorante Con Fusion</Text>
+            </View>
+        </View>
+        <DrawerItems {...props} />
+        </SafeAreaView>
+    </ScrollView>
+);
 
 const MainNavigator = createDrawerNavigator({
     Home:{
         screen:HomeNavigator,
-        defaultNavigationOptions:{
+        navigationOptions:{
             title:'Home',
-            drawerLabel:'Home'
+            drawerLabel:'Home',
+            drawerIcon:({tintColor})=>(
+                <Icon
+                name='home'
+                type='font-awesome'
+                size={24}
+                color={tintColor}
+                />
+            )
         }
     },
     Menu:{
         screen:MenuNavigator,
-        defaultNavigationOptions:{
+        navigationOptions:{
             title:'Menu',
-            drawerLabel:'Menu'
+            drawerLabel:'Menu',
+            drawerIcon:({tintColor})=>(
+                <Icon
+                name='list'
+                type='font-awesome'
+                size={24}
+                color={tintColor}
+                />
+            )
         }      
     },
     ContactUs:{
         screen:ContactNavigator,
-        defaultNavigationOptions:{
+        navigationOptions:{
             title:'Contact Us',
-            drawerLabel:'Contact Us'
+            drawerLabel:'Contact Us',
+            drawerIcon:({tintColor})=>(
+                <Icon
+                name='address-card'
+                type='font-awesome'
+                size={22}
+                color={tintColor}
+                />
+            )
         }
     },
     AboutUs:{
         screen:AboutNavigator,
-        defaultNavigationOptions:{
+        navigationOptions:{
             title: 'About Us',
-            drawerLabel:'About Us'
+            drawerLabel:'About Us',
+            drawerIcon:({tintColor})=>(
+                <Icon
+                name='info-circle'
+                type='font-awesome'
+                size={24}
+                color={tintColor}
+                />
+            )
         }
     }
 },{
-    drawerBackgroundColor:'grey'
+    drawerBackgroundColor:'grey',
+    contentComponent:CustomDrawerContentComponent
 });
 
 
@@ -114,5 +189,27 @@ class Main extends Component{
     }
 }
 
-
+const styles = StyleSheet.create({
+    container:{
+        flex:1
+    },
+    drawerHeader:{
+        backgroundColor:'#512DA8',
+        height:140,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex:1,
+        flexDirection:'row'
+    },
+    drawerHeaderText: {
+        color: 'white',
+        fontSize: 24,
+        fontWeight: 'bold'
+      },
+      drawerImage: {
+        margin: 10,
+        width: 80,
+        height: 60
+      }
+});
 export default Main;

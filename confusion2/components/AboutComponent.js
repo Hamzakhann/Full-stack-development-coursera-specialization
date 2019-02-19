@@ -31,7 +31,7 @@ class AboutUs extends Component{
     static navigationOptions = {
         title:'About Us'
     }
-
+    
     render(){
         const renderLeaders = ({item , index}) =>{
             return(

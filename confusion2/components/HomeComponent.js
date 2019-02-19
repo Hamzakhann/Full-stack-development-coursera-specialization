@@ -10,6 +10,7 @@ function RenderItem(props) {
         const item = props.item;
         
         if (item != null) {
+            console.log(item)
             return(
                 <Card
                     featuredTitle={item.name}
