@@ -5,7 +5,7 @@ import Home from './HomeComponent';
 import Dishdetail from './DishdetailComponent';
 import ContactUs from './ContactComponent';
 import AboutUs from './AboutComponent';
-import {createStackNavigator , createAppContainer ,createDrawerNavigator , createDrawerNavigator, DrawerItems , SafeAreaView } from 'react-navigation';
+import {createStackNavigator , createAppContainer ,createDrawerNavigator , DrawerItems , SafeAreaView } from 'react-navigation';
 import {Icon} from 'react-native-elements';
 
 const MenuNavigator = createStackNavigator({
