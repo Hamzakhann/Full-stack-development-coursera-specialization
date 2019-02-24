@@ -2,7 +2,7 @@ import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 
 export const fetchComments = () => (dispatch) => {
-    return fetch(baseUrl + 'comments')
+    return fetch(baseUrl+'comments')
     .then(response => {
         if (response.ok) {
           return response;
@@ -35,7 +35,9 @@ export const fetchDishes = () => (dispatch) => {
 
     dispatch(dishesLoading());
 
-    return fetch(baseUrl + 'dishes')
+    // return fetch(baseUrl + 'dishes')
+    return fetch("http://localhost:3001/dishes")
+
     .then(response => {
         if (response.ok) {
           return response;
@@ -74,6 +76,7 @@ export const fetchPromos = () => (dispatch) => {
 
     return fetch(baseUrl + 'promotions')
     .then(response => {
+        console.log('ha bhai response' ,response)
         if (response.ok) {
             return response;
         } else {
@@ -140,4 +143,17 @@ export const leadersFailed = (errmess) => ({
 export const addLeaders = (leaders) => ({
     type: ActionTypes.ADD_LEADERS,
     payload: leaders
+});
+
+export const postFavorite = (dishId)  => (dispatch) => {
+
+    setTimeout(() => {
+        dispatch(addFavorite(dishId));
+    }, 2000);
+};
+
+
+export const addFavorite = (dishId) => ({
+    type: ActionTypes.ADD_FAVORITE,
+    payload: dishId
 });

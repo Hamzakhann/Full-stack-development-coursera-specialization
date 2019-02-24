@@ -7,6 +7,24 @@ import ContactUs from './ContactComponent';
 import AboutUs from './AboutComponent';
 import {createStackNavigator , createAppContainer ,createDrawerNavigator , DrawerItems , SafeAreaView } from 'react-navigation';
 import {Icon} from 'react-native-elements';
+import { connect } from 'react-redux';
+import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+import Reservation from './ReservationComponent';
+const mapStateToProps = state => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders
+  }
+}
+const mapDispatchToProps = dispatch => ({
+    fetchDishes: () => dispatch(fetchDishes()),
+    fetchComments: () => dispatch(fetchComments()),
+    fetchPromos: () => dispatch(fetchPromos()),
+    fetchLeaders: () => dispatch(fetchLeaders()),
+  })
+
 
 const MenuNavigator = createStackNavigator({
     Menu: {screen:Menu,
@@ -85,6 +103,22 @@ const ContactNavigator = createStackNavigator({
       })
 });
 
+const ReservationNavigator = createStackNavigator({
+    Reservation: { screen: Reservation }
+  }, {
+    navigationOptions: ({ navigation }) => ({
+      headerStyle: {
+          backgroundColor: "#512DA8"
+      },
+      headerTitleStyle: {
+          color: "#fff"            
+      },
+      headerTintColor: "#fff",
+      headerLeft: <Icon name="menu" size={24}
+        iconStyle={{ color: 'white' }} 
+        onPress={ () => navigation.navigate('DrawerToggle') } />    
+    })
+  })
 
 const CustomDrawerContentComponent = (props)=>(
     <ScrollView>
@@ -151,6 +185,21 @@ const MainNavigator = createDrawerNavigator({
             )
         }
     },
+    Reservation:
+    { screen: ReservationNavigator,
+      navigationOptions: {
+        title: 'Reserve Table',
+        drawerLabel: 'Reserve Table',
+        drawerIcon: ({ tintColor, focused }) => (
+          <Icon
+            name='cutlery'
+            type='font-awesome'            
+            size={24}
+            iconStyle={{ color: tintColor }}
+          />
+        ),
+      }
+    },
     AboutUs:{
         screen:AboutNavigator,
         navigationOptions:{
@@ -176,7 +225,16 @@ const MainNavigator = createDrawerNavigator({
 const RootStack = createAppContainer(MainNavigator)
 
 class Main extends Component{
-  
+    constructor(props){
+        super(props)
+    }
+
+    componentDidMount() {
+    this.props.fetchDishes();
+    this.props.fetchComments();
+    this.props.fetchPromos();
+    this.props.fetchLeaders();
+  }
     render(){
         return(
 
@@ -212,4 +270,4 @@ const styles = StyleSheet.create({
         height: 60
       }
 });
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
