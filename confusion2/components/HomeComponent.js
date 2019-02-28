@@ -60,7 +60,7 @@ class Home extends Component {
     };
 
     render() {
-        
+            console.log('ye dekho' , this.props)
         return(
             <ScrollView>
                <RenderItem item={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
